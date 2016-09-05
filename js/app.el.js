@@ -2,7 +2,8 @@ var app = (function(parent, w, d, d3) {
 
 
   parent.el = {
-      countriesTopo : null,
+      countriesGeom : null,
+	  countriesData : null,
       currentIso : 'GIN'
 //    baselayer : null,
 //    sql : new cartodb.SQL({ user: 'chenrick' }),

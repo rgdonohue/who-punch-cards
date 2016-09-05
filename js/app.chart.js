@@ -37,7 +37,7 @@ var app = (function (parent, d3) {
     };
 
     // graphs one and two
-    var chart = new chartParams('#chart', 'GIN'); 
+    var chart = new chartParams('#chart', 'COG'); 
 
     parent.chart = {
         

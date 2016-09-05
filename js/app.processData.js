@@ -19,7 +19,7 @@ var app = (function(parent, d3){
             .defer(d3.csv, 'data/country_vaccination/Pol3.csv')
             .defer(d3.csv, 'data/country_vaccination/RotaC.csv')
             .awaitAll(function(e,d) {
-                el.countriesTopo = d.shift();
+                var countriesGeom = d.shift();
                 el.data = d;
             
                 var countriesData = {};
@@ -37,16 +37,20 @@ var app = (function(parent, d3){
                         }
 
                         // add vaccination data to country geom properties
-                        el.countriesTopo.objects.countries.geometries.map(function(country) { 
+                        countriesGeom.objects.countries.geometries.map(function(country) { 
                             if(country.properties.iso === countryVaccineDatum.ISO_code) {
                                 country.properties[countryVaccineDatum.Vaccine] = countryVaccineDatum;   
                             } 
                         });
                     });     
                 });
-
+		  	
+		  		
                 el.countriesData = countriesData;
-                app.chart.init(el.countriesData)
+		  		el.countriesGeom = countriesGeom;
+		  
+                app.chart.init(el.countriesData);
+		  		app.map.init(el.countriesGeom);
             });
     
     } // end init()

@@ -1,14 +1,20 @@
 body {
   background: #fcfcfa;
+  font-family: "Proxima Nova", sans-serif;
+}
+h1 {
+  margin: 0 0 0 20px;
+  font-weight: normal;
 }
 
 /* MAP STYLES */
 #map {
-    width: 640px;
+    width: 66%;
     height: 363px;
     display: inline-block;
     position: absolute;
     bottom: 0;
+  	right: 20px;
 }
 .stroke {
   fill: none;
@@ -32,20 +38,20 @@ body {
 }
 
 .boundary {
-  fill: none;
-  stroke: #fff;
+  fill: #888;
+  stroke: whitesmoke;
   stroke-width: .5px;
 }
 
 /* CHART STYLES */
 
 #chart {
-    width: 90%;
+    width: 66%;
     height: 360px;
     display: inline-block;
     position: absolute;
     top: 60px;
-    right:5%;
+    right: 20px;
     background: whitesmoke;
 }
 /*

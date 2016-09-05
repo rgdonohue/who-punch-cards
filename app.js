@@ -123,7 +123,7 @@ var app = (function() {
     
     function makeChart(countriesData) {
         
-        var currentIso = 'ALB';
+        var currentIso = 'GIN';
         
         var chartWidth = Number(d3.select('#chart').style('width').slice(0,-2)),
             chartHeight = Number(d3.select('#chart').style('height').slice(0,-2));
@@ -162,8 +162,8 @@ var app = (function() {
         }
         
         var x = d3.scaleTime().range([0, width])
-                .domain([parseTime(1980), parseTime(2015)]),
-            y = d3.scaleLinear().range([height, 0])
+                .domain([parseTime(2010), parseTime(2015)]),
+            y = d3.scaleLinear().range([height*2.5, 0])
                 .domain([
                     d3.min(countryData, function(c) { 
                         return d3.min(c.values, function(d) { 
@@ -209,6 +209,14 @@ var app = (function() {
           .attr("class", "line")
           .attr("d", function(d) { return line(d.values); })
           .style("stroke", function(d) { return z(d.id); });
+        
+        vaccines.selectAll(".dot")
+            .data(countryData.filter(function(d) { console.log(parseTime(2013)); return {x: 2014, y: 80}; }))
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", line.x())
+            .attr("cy", line.y())
+            .attr("r", 3.5);
 
       vaccines.append("text")
           .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })

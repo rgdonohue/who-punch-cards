@@ -44,8 +44,9 @@ body {
     height: 360px;
     display: inline-block;
     position: absolute;
-    top: 0;
-    left:0;
+    top: 60px;
+    right:5%;
+    background: whitesmoke;
 }
 /*
 .axis path,
@@ -83,3 +84,8 @@ body {
   stroke-width: 1.5px;
 }
 
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}

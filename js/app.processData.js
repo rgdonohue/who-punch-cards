@@ -51,6 +51,7 @@ var app = (function(parent, d3){
 		  
                 app.chart.init(el.countriesData);
 		  		app.map.init(el.countriesGeom);
+                app.ui.init(el.countriesData);
             });
     
     } // end init()

@@ -10,7 +10,7 @@ var app = (function (parent, d3) {
     var svg = d3.select("#chart svg").attr('width', chartWidth).attr('height', chartHeight),
         margin = {
             top: 20,
-            right: 80,
+            right: 20,
             bottom: 30,
             left: 50
         },
@@ -37,16 +37,18 @@ var app = (function (parent, d3) {
     };
 
     // graphs one and two
-    var chart = new chartParams('#chart', 'COG'); 
+    var chart = new chartParams('#chart', 'AFG'); 
 
     parent.chart = {
         
         init : function(data) {
             
+            chart.data = data;
+            
             if(chart.made) {
-                app.chart.updateChart(data, chart);
+                app.chart.updateChart(chart);
             } else {
-                app.chart.drawChart(data, chart);
+                app.chart.drawChart(chart);
             }    
         },
         parseData: function (countriesData, currentIso) {
@@ -79,9 +81,9 @@ var app = (function (parent, d3) {
             el.countryData = countryData;
             return countryData;
         },
-        drawChart: function (data, chart) {
+        drawChart: function (chart) {
        
-            var countryData = app.chart.parseData(data, chart.iso)
+            var countryData = app.chart.parseData(chart.data, chart.iso);
           
             var x = d3.scaleTime().range([0, width])
                 .domain([parseTime(1980), parseTime(2015)]),
@@ -124,7 +126,7 @@ var app = (function (parent, d3) {
                 .call(d3.axisLeft(y))
                 .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 6)
+                .attr("y", -40)
                 .attr("dy", "0.71em")
                 .attr("fill", "#000")
                 .text("Percente of Population Vaccinated");
@@ -143,25 +145,77 @@ var app = (function (parent, d3) {
                     return z(d.id);
                 });
 
-            vaccines.append("text")
-                .datum(function (d) {
-                    return {
-                        id: d.id,
-                        value: d.values[d.values.length - 1]
-                    };
-                })
-                .attr("transform", function (d) {
-                    return "translate(" + x(d.value.year) + "," + y(d.value.percentage) + ")";
-                })
-                .attr("x", 3)
-                .attr("dy", "0.35em")
-                .style("font", "10px sans-serif")
-                .text(function (d) {
-                    return d.id;
-                });
+//            vaccines.append("text")
+//                .datum(function (d) {
+//                    return {
+//                        id: d.id,
+//                        value: d.values[d.values.length - 1]
+//                    };
+//                })
+//                .attr("transform", function (d) {
+//                    return "translate(" + x(d.value.year) + "," + y(d.value.percentage) + ")";
+//                })
+//                .attr("x", 3)
+//                .attr("dy", "0.35em")
+//                .style("font", "10px sans-serif")
+//                .text(function (d) {
+//                    return d.id;
+//                });
 
         },
-        updateChart(data, chart) {
+        updateChart(iso) {
+    
+            chart.currentIso = iso;
+         
+            var countryData = app.chart.parseData(chart.data, chart.currentIso);
+            
+            var x = d3.scaleTime().range([0, width])
+                .domain([parseTime(1980), parseTime(2015)]),
+                y = d3.scaleLinear().range([height, 0])
+                .domain([
+                    d3.min(countryData, function (c) {
+                        return d3.min(c.values, function (d) {
+                            return d.percentage;
+                        })
+                    }),
+                    d3.max(countryData, function (c) {
+                        return d3.max(c.values, function (d) {
+                            return d.percentage;
+                        })
+                    })
+              ]),
+                z = d3.scaleOrdinal(d3.schemeCategory10)
+                .domain(countryData.map(function (c) {
+                    return c.id;
+                }));
+
+             var line = d3.line()
+                .curve(d3.curveBasis)
+                .x(function (d) {
+                    return x(d.year);
+                })
+                .y(function (d) {
+                    return y(d.percentage);
+                });
+            
+            var t = d3.transition()
+              .duration(750);
+            
+             var vaccines = d3.selectAll(".line")     
+                .data(countryData)
+    
+                .attr("d", function (d) {
+                    return line(d.values);
+                });
+            
+//            vaccines.exit().remove();
+//       
+//            vaccines.enter()
+//           
+//             d3.selectAll(".line")
+//                 .attr("d", function (d) {
+//                    return line(d.values);
+//                });
             
         }
 

@@ -1,20 +1,38 @@
 body {
-  background: #fcfcfa;
+  background-color: whitesmoke;
   font-family: "Proxima Nova", sans-serif;
 }
 h1 {
   margin: 0 0 0 20px;
   font-weight: normal;
+  color: darkslateblue;
 }
 
-/* MAP STYLES */
+/* UI */
+
+#ui {
+  width: 30%;
+  display: inline-block;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+}
+#ui button {
+    padding: 6px 15px;
+    font-size: 1.2em;
+}
+#ui option {
+    font-size: 1.3em;
+}
+
+/* MAP */
 #map {
-    width: 66%;
-    height: 363px;
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
-  	right: 20px;
+  width: 66%;
+  height: 363px;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
 }
 .stroke {
   fill: none;
@@ -37,13 +55,15 @@ h1 {
   fill: #666;
 }
 
-.boundary {
+.country {
   fill: #888;
   stroke: whitesmoke;
   stroke-width: .5px;
 }
 
-/* CHART STYLES */
+
+
+/* CHART */
 
 #chart {
     width: 66%;
@@ -52,7 +72,7 @@ h1 {
     position: absolute;
     top: 60px;
     right: 20px;
-    background: whitesmoke;
+    background: #fcfcfa;
 }
 /*
 .axis path,
@@ -94,4 +114,15 @@ h1 {
   fill: white;
   stroke: steelblue;
   stroke-width: 1.5px;
+}
+
+/* CHART LEGEND */
+
+#chart-legend {
+    position: absolute;
+    width: 100;
+    height: 150px;
+}
+#chart-legend h2 {
+    font-size: 1.2em;
 }

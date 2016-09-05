@@ -1,33 +1,47 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>WHO Punch Card</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="styles.css" />
-	</head>
-	<body>
-      <header>
-	     <h1>Global Vaccination</h1>
-      </header>
-	      <div id="chart"><svg></svg></div>
-      	  <div id="map"><svg></svg></div>
-      
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
-	  
 
+<head>
+	<title>WHO Punch Card</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="styles.css" />
+</head>
 
-	  
-<!--	  <script src="//d3js.org/d3.geo.projection.v0.min.js"></script>-->
-<!--        <script src="assets/js/d3.geo.polyhedron.min.js"></script>-->
-
-
-
-
-
+<body>
+	<header>
+		<h1>Global Vaccination</h1>
+	</header>
+	<div id="ui">Please Select a Country:
+        <select id="select-country">
 <!--
+          <option value="value1">Value 1</option> 
+          <option value="value2" selected>Value 2</option>
+-->
+        </select>
+	</div>
+	<div id="chart">
+		<svg></svg>
+	</div>
+	<div id="map">
+		<svg></svg>
+	</div>
+
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+	<script src="//d3js.org/topojson.v1.min.js"></script>
+
+
+
+
+	<!--	  <script src="//d3js.org/d3.geo.projection.v0.min.js"></script>-->
+	<!--        <script src="assets/js/d3.geo.polyhedron.min.js"></script>-->
+
+
+
+
+
+	<!--
   
       
       
@@ -52,19 +66,22 @@
 	  
 	  
 -->
-	  
-  <script src="js/app.el.js"></script>
 
-  <script src="js/app.map.js"></script>
-<!--  <script src="js/app.ui.js"></script>
+	<script src="js/app.el.js"></script>
+
+
+	<!--  <script src="js/app.ui.js"></script>
 -->
-  <script src="js/app.processData.js"></script>
-  <script src="js/app.chart.js"></script>
-  <script src="js/app.init.js"></script>
-      
-  <script type="text/javascript">
-      document.onload = app.init();
-  </script>
+	<script src="js/app.processData.js"></script>
+	<script src="js/app.chart.js"></script>
+    <script src="js/app.map.js"></script>
+    <script src="js/app.ui.js"></script>
+	<script src="js/app.init.js"></script>
 
-	</body>
+	<script type="text/javascript">
+		document.onload = app.init();
+	</script>
+
+</body>
+
 </html>

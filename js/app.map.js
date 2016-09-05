@@ -11,8 +11,6 @@ var app = (function(parent, d3){
 	  var width = d3.select("#map").style("width").slice(0,-2),
 		  height = d3.select("#map").style("height").slice(0,-2);
 		
-		console.log(width, height)
-		
 	  var svg = d3.select("#map svg")
 	  	  .attr("width", width)
 	  	  .attr("height", height);
@@ -69,11 +67,21 @@ var app = (function(parent, d3){
 			  .data(topojson.feature(world, world.objects.countries).features)
 		  	  .enter()
 		  	  .append("path")
-			  .attr("class", "boundary")
+			  .attr("class", "country")
 			  .attr("clip-path", "url(#clip)")
 			  .attr("d", path);
     
-    }
+        },
+        highLightCountry : function(iso) {
+            console.log(iso)
+            d3.selectAll('.country')
+                .attr('fill', function(d) {
+                    if(d.properties.iso == iso) {
+                        return 'yellow';
+                    }
+                })   
+        }
+        
       
   }
   

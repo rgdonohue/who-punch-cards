@@ -70,14 +70,18 @@ var app = (function(parent, d3){
 			  .attr("class", "country")
 			  .attr("clip-path", "url(#clip)")
 			  .attr("d", path);
+        
+        app.map.highLightCountry('AFG')
     
         },
         highLightCountry : function(iso) {
-            console.log(iso)
+
             d3.selectAll('.country')
                 .attr('fill', function(d) {
                     if(d.properties.iso == iso) {
                         return 'yellow';
+                    } else {
+                        return '#888';
                     }
                 })   
         }

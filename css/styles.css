@@ -1,9 +1,11 @@
 body {
   background-color: whitesmoke;
   font-family: "Proxima Nova", sans-serif;
+  color: #666;
 }
 h1 {
   margin: 0 0 0 20px;
+  padding: 0;
   font-weight: normal;
   color: darkslateblue;
 }
@@ -27,8 +29,8 @@ h1 {
 
 /* MAP */
 #map {
-  width: 66%;
-  height: 363px;
+  width: 60%;
+  height: 340px;
   display: inline-block;
   position: absolute;
   bottom: 0;
@@ -56,7 +58,7 @@ h1 {
 }
 
 .country {
-  fill: #888;
+/*  fill: #888;*/
   stroke: whitesmoke;
   stroke-width: .5px;
 }

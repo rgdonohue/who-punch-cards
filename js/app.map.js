@@ -15,21 +15,26 @@ var app = (function(parent, d3){
 	  	  .attr("width", width)
 	  	  .attr("height", height);
 
-	  var projection = d3.geoInterrupt(d3.geoSinusoidalRaw,
-		  [[ // northern hemisphere
-              [[-180,   0], [-100,  90], [ -40,   0]],
-              [[ -40,   0], [  30,  90], [ 180,   0]]
-            ], [ // southern hemisphere
-              [[-180,   0], [-160, -90], [-100,   0]],
-              [[-100,   0], [ -60, -90], [ -20,   0]],
-              [[ -20,   0], [  20, -90], [  80,   0]],
-              [[  80,   0], [ 140, -90], [ 180,   0]]
-            ]])
-		.rotate([0, 0])
-		.scale(100)
-		.translate([width / 2, height / 2])
-		.precision(0.1);
-		
+//	  var projection = d3.geoInterrupt(d3.geoSinusoidalRaw,
+//		  [[ // northern hemisphere
+//              [[-180,   0], [-100,  90], [ -40,   0]],
+//              [[ -40,   0], [  30,  90], [ 180,   0]]
+//            ], [ // southern hemisphere
+//              [[-180,   0], [-160, -90], [-100,   0]],
+//              [[-100,   0], [ -60, -90], [ -20,   0]],
+//              [[ -20,   0], [  20, -90], [  80,   0]],
+//              [[  80,   0], [ 140, -90], [ 180,   0]]
+//            ]])
+//		.rotate([0, 0])
+//		.scale(120)
+//		.translate([width / 2, height / 2])
+//		.precision(0.1);
+        
+        var projection = d3.geoCylindricalStereographic()
+            .scale(140)
+            .translate([width / 2, height / 2 + 50])
+            .rotate([0, 0, 0])
+            .precision(0.1);
 		
 		var graticule = d3.geoGraticule();
 
@@ -62,16 +67,19 @@ var app = (function(parent, d3){
 			.attr("clip-path", "url(#clip)")
 			.attr("d", path);
 		
-		  svg
-		  	  .selectAll("path")
+		  svg.selectAll("path")
 			  .data(topojson.feature(world, world.objects.countries).features)
 		  	  .enter()
 		  	  .append("path")
 			  .attr("class", "country")
 			  .attr("clip-path", "url(#clip)")
-			  .attr("d", path);
+			  .attr("d", path)
+              .on('mouseover', function(d) {
+                    app.map.highLightCountry(d.properties.iso);
+                    app.chart.updateChart(d.properties.iso);
+                });
         
-        app.map.highLightCountry('AFG')
+            app.map.highLightCountry('AFG')
     
         },
         highLightCountry : function(iso) {

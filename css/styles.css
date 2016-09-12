@@ -1,6 +1,7 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
 body {
-  background-color: whitesmoke;
-  font-family: "Proxima Nova", sans-serif;
+/*  background-color: whitesmoke;*/
+  font-family: "Open Sans", sans-serif;
   color: #666;
 }
 h1 {
@@ -13,11 +14,10 @@ h1 {
 /* UI */
 
 #ui {
-  width: 30%;
   display: inline-block;
   position: absolute;
+  bottom: 20px;
   top: 60px;
-  left: 20px;
 }
 #ui button {
     padding: 6px 15px;
@@ -29,12 +29,12 @@ h1 {
 
 /* MAP */
 #map {
-  width: 60%;
-  height: 340px;
+  width: 760px;
+  height: 400px;
   display: inline-block;
   position: absolute;
-  bottom: 0;
-  right: 20px;
+  top: 20px;
+  right: 10px;
 }
 .stroke {
   fill: none;
@@ -62,19 +62,22 @@ h1 {
   stroke: whitesmoke;
   stroke-width: .5px;
 }
+.country:hover {
+    cursor: pointer;
+}
 
 
 
 /* CHART */
 
 #chart {
-    width: 66%;
-    height: 360px;
+    width: 760px;
+    height: 300px;
     display: inline-block;
     position: absolute;
-    top: 60px;
+    top: 460px;
     right: 20px;
-    background: #fcfcfa;
+/*    background: #fcfcfa;*/
 }
 /*
 .axis path,
@@ -92,7 +95,7 @@ h1 {
 */
 
 .axis {
-  font: 10px sans-serif;
+  font: 14px "Open Sans";
 }
 
 .axis path,
@@ -127,4 +130,17 @@ h1 {
 }
 #chart-legend h2 {
     font-size: 1.2em;
+}
+
+/* CHART LEGEND*/
+
+#chart-legend {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+#chart-legend svg {
+    
 }

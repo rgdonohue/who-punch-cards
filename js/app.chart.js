@@ -33,7 +33,6 @@ var app = (function (parent, d3) {
 
     };
 
-    // graphs one and two
     var chart = new chartParams('#chart', 'AFG'); 
 
     parent.chart = {
@@ -122,10 +121,10 @@ var app = (function (parent, d3) {
                 .call(d3.axisLeft(chart.y))
                 .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", -40)
-                .attr("dy", "0.71em")
+                .attr("y", -50)
+                .attr("dy", "0.70em")
                 .attr("fill", "#000")
-                .text("Percente of Population Vaccinated");
+                .text("% Population Vaccinated");
 
             var vaccines = g.selectAll(".vaccine")
                 .data(countryData)
@@ -139,6 +138,9 @@ var app = (function (parent, d3) {
                 })
                 .style("stroke", function (d) {
                     return chart.z(d.id);
+                })
+                .attr("id", function(d) {
+                    return d.id;
                 });
 
 //            vaccines.append("text")
@@ -149,7 +151,7 @@ var app = (function (parent, d3) {
 //                    };
 //                })
 //                .attr("transform", function (d) {
-//                    return "translate(" + x(d.value.year) + "," + y(d.value.percentage) + ")";
+//                    return "translate(" + chart.x(d.value.year) + "," + chart.y(d.value.percentage) + ")";
 //                })
 //                .attr("x", 3)
 //                .attr("dy", "0.35em")
@@ -157,6 +159,8 @@ var app = (function (parent, d3) {
 //                .text(function (d) {
 //                    return d.id;
 //                });
+            
+                  app.chartLegend.init(countryData);
 
         },
         updateChart(iso) {
@@ -171,12 +175,17 @@ var app = (function (parent, d3) {
                 .attr("d", function (d) {
                     return chart.line(d.values);
                 });   
+        },
+        compareRegion(vaccine) {
+            
+            // upon user selection, visualize single vaccine across regional countries
+            
         }
 
     }
+    
+     
 
-
-
-    return parent;
+     return parent;
 
 })(app || {}, d3)

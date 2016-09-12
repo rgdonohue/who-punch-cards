@@ -8,7 +8,8 @@ var app = (function(parent, d3){
     init : function() {
         
         d3.queue()
-            .defer(d3.json, 'data/countries.topo.json')
+            .defer(d3.json, 'data/countries.json')
+            .defer(d3.json, 'data/vaccineCodes.json')
             .defer(d3.csv, 'data/country_vaccination/BCG.csv')
             .defer(d3.csv, 'data/country_vaccination/DTP1.csv')
             .defer(d3.csv, 'data/country_vaccination/DTP3.csv')
@@ -19,11 +20,15 @@ var app = (function(parent, d3){
             .defer(d3.csv, 'data/country_vaccination/Pol3.csv')
             .defer(d3.csv, 'data/country_vaccination/RotaC.csv')
             .awaitAll(function(e,d) {
-                var countriesGeom = d.shift();
+            
+                var countriesGeom = d.shift(),
+                    vaccineCodes = d.shift(),
+                    geoms = countriesGeom.objects.countries.geometries;
+               
                 el.data = d;
             
                 var countriesData = {};
-
+            
                 d.map(function(vaccineDatum) {   
                     vaccineDatum.map(function(countryVaccineDatum) {
 
@@ -37,21 +42,50 @@ var app = (function(parent, d3){
                         }
 
                         // add vaccination data to country geom properties
-                        countriesGeom.objects.countries.geometries.map(function(country) { 
+                        geoms.map(function(country) { 
                             if(country.properties.iso === countryVaccineDatum.ISO_code) {
                                 country.properties[countryVaccineDatum.Vaccine] = countryVaccineDatum;   
                             } 
                         });
                     });     
                 });
-		  	
+
 		  		
                 el.countriesData = countriesData;
 		  		el.countriesGeom = countriesGeom;
+                el.vaccineCodes = vaccineCodes;
 		  
                 app.chart.init(el.countriesData);
 		  		app.map.init(el.countriesGeom);
                 app.ui.init(el.countriesData);
+               
+            
+            
+            //  TEST to see if iso codes in data aren't found in geometry data
+                var dataIsos = [];
+
+                for(var iso in countriesData){
+                    dataIsos.push(iso);
+                }
+                
+                var geometryIsos = [];
+                  
+                geoms.map(function(o) {
+                   geometryIsos.push(o.properties.iso)
+                });
+                console.log()
+                var missingGeoms = [];
+            
+                dataIsos.map(function(iso) {
+                   
+                    if(geometryIsos.indexOf(iso) == -1) {
+                        missingGeoms.push(iso)
+                    }
+                });
+            
+                console.log('data does not have a country for: ', missingGeoms)
+ 
+            
             });
     
     } // end init()

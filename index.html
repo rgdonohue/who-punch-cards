@@ -12,9 +12,12 @@
 	<header>
 		<h1>Global Vaccination Rates</h1>
 	</header>
-	<div id="ui">Please Select a Country:
+	<div id="ui">Select Country by ISO:
         <select id="select-country"></select>
 	</div>
+    <div id="chart-legend">
+        <svg></svg>
+    </div>
 	<div id="chart">
 		<svg></svg>
 	</div>
@@ -61,13 +64,9 @@
 	  
 	  
 -->
-
 	<script src="js/app.el.js"></script>
-
-
-	<!--  <script src="js/app.ui.js"></script>
--->
 	<script src="js/app.processData.js"></script>
+    <script src="js/app.chartLegend.js"></script>
 	<script src="js/app.chart.js"></script>
     <script src="js/app.map.js"></script>
     <script src="js/app.ui.js"></script>

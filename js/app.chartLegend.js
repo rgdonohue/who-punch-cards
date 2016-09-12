@@ -26,7 +26,7 @@ var app = (function (parent, d3) {
                 .domain(vaccines);
            
             svg.append('g')
-                .attr('transform', 'translate(0, 80)')
+                .attr('transform', 'translate(0, 110)')
                 .selectAll('g')
                 .data(vaccines)
                 .enter()
@@ -37,11 +37,11 @@ var app = (function (parent, d3) {
                 .append("line")
                 .attr("x1", 330)
                 .attr("y1", function(d,i) {
-                    return 45 * i;
+                    return 40 * i;
                 })
                 .attr("x2", 370)
                 .attr("y2", function(d,i) {
-                    return 45 * i;
+                    return 40 * i;
                 })
                 .attr("stroke-width", 3)
                 .attr("stroke", function(d) { 
@@ -52,13 +52,13 @@ var app = (function (parent, d3) {
                 .append('text')
                 .attr("x", 0)
                 .attr("y", function(d,i) {
-                    return 45 * i;
+                    return 40 * i;
                 })
-                .style("font", "14px Open Sans")
+                .style("font", "13px Open Sans")
                 .text(function(d) {
                     return el.vaccineCodes[d] + ' ('+d+')';
                 })
-                .call(app.chartLegend.wrapText, 290)
+                .call(app.chartLegend.wrapText, 270)
 //                .attr('text-anchor', 'end')
 //                .attr('alignment-baseline', 'middle')
 

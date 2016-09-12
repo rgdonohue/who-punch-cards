@@ -19,6 +19,7 @@ var app = (function(parent, d3){
             .defer(d3.csv, 'data/country_vaccination/PAB.csv')
             .defer(d3.csv, 'data/country_vaccination/Pol3.csv')
             .defer(d3.csv, 'data/country_vaccination/RotaC.csv')
+            .defer(d3.csv, 'data/country_vaccination/YFV.csv')
             .awaitAll(function(e,d) {
             
                 var countriesGeom = d.shift(),
@@ -50,7 +51,7 @@ var app = (function(parent, d3){
                     });     
                 });
 
-		  		
+		  		console.log(countriesData)
                 el.countriesData = countriesData;
 		  		el.countriesGeom = countriesGeom;
                 el.vaccineCodes = vaccineCodes;

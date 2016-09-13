@@ -114,9 +114,9 @@ var app = (function(parent, d3){
             d3.selectAll('.country')
                 .attr('fill', function(d) {
                     if(d.properties.iso == iso) {
-                        return 'yellow';
+                        return '#999';
                     } else {
-                        return '#888';
+                        return '#777';
                     }
                 })   
         }

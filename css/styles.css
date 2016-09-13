@@ -35,7 +35,6 @@ h1 {
   position: absolute;
   top: 20px;
   right: 20px;
-      border: 1px solid green;
 }
 .stroke {
   fill: none;
@@ -51,7 +50,7 @@ h1 {
   fill: none;
   stroke: #999;
   stroke-width: .3px;
-  stroke-opacity: .5;
+  stroke-opacity: .2;
 }
 
 .land {
@@ -78,8 +77,6 @@ h1 {
     position: absolute;
     top: 440px;
     right: 20px;
-/*    background: #fcfcfa;*/
-    border: 1px solid green;
 }
 /*
 .axis path,

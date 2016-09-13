@@ -31,55 +31,82 @@ var app = (function(parent, d3){
 //		.precision(0.1);
         
         var projection = d3.geoCylindricalStereographic()
-            .scale(140)
-            .translate([width / 2, height / 2 + 50])
-            .rotate([0, 0, 0])
-            .precision(0.1);
-		
+            .scale(Math.PI * 2)
+            .translate([0,0]);
+     	
 		var graticule = d3.geoGraticule();
 
 		var path = d3.geoPath()
 			.projection(projection);
-
-		var defs = svg.append("defs");
-
-		defs.append("path")
-			.datum({type: "Sphere"})
-			.attr("id", "sphere")
-			.attr("d", path);
-
-		defs.append("clipPath")
-			.attr("id", "clip")
-		  .append("use")
-			.attr("xlink:href", "#sphere");
-
-		svg.append("use")
-			.attr("class", "stroke")
-			.attr("xlink:href", "#sphere");
-
-		svg.append("use")
-			.attr("class", "fill")
-			.attr("xlink:href", "#sphere");
-
-		svg.append("path")
+        
+        var zoom = d3.zoom()
+            .scaleExtent([20, 200])
+            .on("zoom", zoomed);
+        
+        
+        var center = projection([-30, 20]);
+        
+        
+//        var defs = svg.append("defs");
+//
+//		defs.append("path")
+//			.datum({type: "Sphere"})
+//			.attr("id", "sphere")
+//			.attr("d", path);
+//
+//		defs.append("clipPath")
+//			.attr("id", "clip")
+//		  .append("use")
+//			.attr("xlink:href", "#sphere");
+//
+//		svg.append("use")
+//			.attr("class", "stroke")
+//			.attr("xlink:href", "#sphere");
+//
+//		svg.append("use")
+//			.attr("class", "fill")
+//			.attr("xlink:href", "#sphere");
+        
+		  var grat = svg.append("path")
 			.datum(graticule)
 			.attr("class", "graticule")
-			.attr("clip-path", "url(#clip)")
+//			.attr("clip-path", "url(#clip)")
 			.attr("d", path);
 		
-		  svg.selectAll("path")
+		  var countries = svg.selectAll("path")
 			  .data(topojson.feature(world, world.objects.countries).features)
 		  	  .enter()
 		  	  .append("path")
 			  .attr("class", "country")
-			  .attr("clip-path", "url(#clip)")
+//			  .attr("clip-path", "url(#clip)")
 			  .attr("d", path)
               .on('mouseover', function(d) {
                     app.map.highLightCountry(d.properties.iso);
                     app.chart.updateChart(d.properties.iso);
                 });
         
-            app.map.highLightCountry('AFG')
+            app.map.highLightCountry('AFG');
+        
+            // Apply a zoom transform equivalent to projection.{scale,translate,center}.
+            svg
+             .call(zoom)
+             .call(zoom.transform, d3.zoomIdentity
+                 .translate(width / 2, height / 2)
+                 .scale(19.5)
+                 .translate(-center[0]- 3 , -center[1] - 1));
+        
+            function zoomed() {
+              
+                var transform = d3.event.transform;
+                
+                countries.attr("transform", transform)
+                        .style("stroke-width", 1 / transform.k);
+                
+                grat.attr("transform", transform)
+                    .style("stroke-width", 1 / transform.k);
+                
+//                d3.select('defs path').attr("transform", transform);
+            }
     
         },
         highLightCountry : function(iso) {

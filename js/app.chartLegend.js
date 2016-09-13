@@ -34,6 +34,9 @@ var app = (function (parent, d3) {
                 .attr('class', function(d,i) {
                     return 'legend-item ';
                 })
+               .on('mouseover', function(d) {
+                    app.chart.highlightVaccine(d);
+                })
                 .append("line")
                 .attr("x1", 330)
                 .attr("y1", function(d,i) {
@@ -46,7 +49,7 @@ var app = (function (parent, d3) {
                 .attr("stroke-width", 3)
                 .attr("stroke", function(d) { 
                     return colorScale(d);
-                });
+                })
             
             d3.selectAll('.legend-item')
                 .append('text')

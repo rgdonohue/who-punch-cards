@@ -34,7 +34,8 @@ h1 {
   display: inline-block;
   position: absolute;
   top: 20px;
-  right: 10px;
+  right: 20px;
+      border: 1px solid green;
 }
 .stroke {
   fill: none;
@@ -78,6 +79,7 @@ h1 {
     top: 440px;
     right: 20px;
 /*    background: #fcfcfa;*/
+    border: 1px solid green;
 }
 /*
 .axis path,
@@ -142,5 +144,9 @@ h1 {
     bottom: 20px;
 }
 #chart-legend svg {
+    
+}
+#chart-legend > svg > g:hover {
+    cursor: pointer;
     
 }

@@ -42,9 +42,9 @@ var app = (function (parent, d3) {
             chart.data = data;
             
             if(chart.made) {
-                app.chart.updateChart(chart);
+                app.chart.updateChart();
             } else {
-                app.chart.drawChart(chart);
+                app.chart.drawChart();
             }    
         },
         parseData: function (countriesData, currentIso) {
@@ -76,10 +76,10 @@ var app = (function (parent, d3) {
             el.countryData = countryData;
             return countryData;
         },
-        drawChart: function (chart) {
+        drawChart: function () {
        
             var countryData = app.chart.parseData(chart.data, chart.iso);
-          
+           
             chart.x = d3.scaleTime().range([0, width])
                 .domain([parseTime(1980), parseTime(2015)]),
             chart.y = d3.scaleLinear().range([height, 0])
@@ -163,22 +163,35 @@ var app = (function (parent, d3) {
                   app.chartLegend.init(countryData);
 
         },
-        updateChart(iso) {
+        updateChart: function(iso) {
     
             chart.currentIso = iso;
          
             var countryData = app.chart.parseData(chart.data, chart.currentIso);
- 
-            var vaccines = d3.selectAll(".line") 
-                
-                .data(countryData).transition()
+            
+            
+            var vaccines = d3.selectAll(".line")
+                .attr('stroke-opacity', '1')
+                .data(countryData)
+                .transition()
                 .attr("d", function (d) {
                     return chart.line(d.values);
                 });   
         },
-        compareRegion(vaccine) {
+        compareRegion: function(vaccine) {
             
             // upon user selection, visualize single vaccine across regional countries
+            
+        },
+        highlightVaccine: function(vaccine) {
+             
+            d3.selectAll(".line")
+                .attr('stroke-opacity', function(d){
+                    console.log(d)
+                    if(d.id != vaccine) return '.2';
+                    else return '1';
+                });
+            
             
         }
 

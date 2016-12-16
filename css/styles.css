@@ -17,7 +17,9 @@ h1 {
   display: inline-block;
   position: absolute;
   left: 20px;
-  top: 60px;
+  bottom: 20px;
+  background: rgba(255, 255, 255, .6);
+  border-radius: 3px;
 }
 #ui button {
     padding: 6px 15px;
@@ -100,14 +102,18 @@ h1 {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #666;
   shape-rendering: crispEdges;
 }
 
 .axis--x path {
 /*  display: none;*/
 }
-
+.vaccine-line {
+    fill: none;
+    stroke-width: 2px;
+}
+/*
 .line {
   fill: none;
   stroke: steelblue;
@@ -119,6 +125,7 @@ h1 {
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+*/
 
 /* CHART LEGEND */
 
@@ -141,9 +148,9 @@ h1 {
     bottom: 20px;
 }
 #chart-legend svg {
-    
+
 }
 #chart-legend > svg > g:hover {
     cursor: pointer;
-    
+
 }

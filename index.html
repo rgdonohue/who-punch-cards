@@ -5,7 +5,7 @@
 	<title>WHO Global Vaccination Rates</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css" />
+	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css" />
 	<link rel="stylesheet" href="css/styles.css" />
 </head>
 
@@ -13,16 +13,17 @@
 	<header>
 		<h1>Global Vaccination Rates</h1>
 	</header>
-	<div id="ui">Select Country by ISO:
-        <select id="select-country"></select>
+
+	<div id="chart-legend">
+		<svg></svg>
 	</div>
-    <div id="chart-legend">
-        <svg></svg>
-    </div>
 	<div id="chart">
 		<svg></svg>
 	</div>
 	<div id="map">
+		<div id="ui">Select Country:
+			<select id="select-country"></select>
+		</div>
 		<svg></svg>
 	</div>
 
@@ -41,36 +42,36 @@
 
 
 	<!--
-  
-      
-      
+
+
+
       <script src="https://d3js.org/d3-time.v1.min.js"></script>
 <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
-      
+
       <script src="https://d3js.org/d3-array.v1.min.js"></script>
 <script src="https://d3js.org/d3-collection.v1.min.js"></script>
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
 <script src="https://d3js.org/d3-format.v1.min.js"></script>
 <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-      
+
 <script src="https://d3js.org/d3-time.v1.min.js"></script>
 <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
-      
+
 <script src="https://d3js.org/d3-scale.v1.min.js"></script>
-      
+
       <script src="https://d3js.org/d3-path.v1.min.js"></script>
 <script src="https://d3js.org/d3-shape.v1.min.js"></script>
-      
+
       <script src="https://d3js.org/d3-axis.v1.min.js"></script>
-	  
-	  
+
+
 -->
 	<script src="js/app.el.js"></script>
 	<script src="js/app.processData.js"></script>
-    <script src="js/app.chartLegend.js"></script>
+	<script src="js/app.chartLegend.js"></script>
 	<script src="js/app.chart.js"></script>
-    <script src="js/app.map.js"></script>
-    <script src="js/app.ui.js"></script>
+	<script src="js/app.map.js"></script>
+	<script src="js/app.ui.js"></script>
 	<script src="js/app.init.js"></script>
 
 	<script type="text/javascript">

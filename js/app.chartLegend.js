@@ -14,13 +14,12 @@ var app = (function (parent, d3) {
 	       var svg = d3.select("#chart-legend svg")
 	  	            .attr("width", width)
 	  	            .attr("height", height)
-//                    .attr('dy', 30);
             
             var vaccines = data.map(function(vaccine) {
                 return vaccine.id;
             })
             
-            console.log(vaccines);
+            //console.log(vaccines);
           
             var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
                 .domain(vaccines);
@@ -64,6 +63,12 @@ var app = (function (parent, d3) {
                 .call(app.chartLegend.wrapText, 270)
 //                .attr('text-anchor', 'end')
 //                .attr('alignment-baseline', 'middle')
+            
+            
+            d3.select('#chart-legend').on('mouseout', function(d) {
+                // need to stop propagation here
+                app.chart.deHighlightVaccines();
+            });
 
         },
         wrapText : function(text, width) {

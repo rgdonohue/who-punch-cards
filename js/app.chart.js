@@ -7,33 +7,33 @@ var app = (function (parent, d3) {
     var chartWidth = Number(d3.select('#chart').style('width').slice(0, -2)),
         chartHeight = Number(d3.select('#chart').style('height').slice(0, -2));
 
-    var svg = d3.select("#chart svg").attr('width', chartWidth).attr('height', chartHeight),
-        margin = {
-            top: 20,
-            right: 20,
-            bottom: 30,
+    var svg = d3.select("#chart svg")
+            .attr('width', chartWidth)
+            .attr('height', chartHeight);
+    
+    var margin = {
+            top: 10,
+            right: 10,
+            bottom: 20,
             left: 50
         },
         width = chartWidth - margin.left - margin.right,
         height = chartHeight - margin.top - margin.bottom;
-
 
     var parseTime = d3.timeParse("%Y");
     
     // object to store graph properites
     function chartParams(container, iso) {
         this.container = container;
-        this.iso = iso;
+        this.iso = null;
         this.made = false;
         this.x = null,
         this.y = null,
         this.z = null,
         this.line = null
-            
-
     };
 
-    var chart = new chartParams('#chart', 'AFG'); 
+    var chart = new chartParams('#chart'); 
 
     parent.chart = {
         
@@ -44,7 +44,7 @@ var app = (function (parent, d3) {
             if(chart.made) {
                 app.chart.updateChart();
             } else {
-                app.chart.drawChart();
+                app.chart.drawChart('AFG');
             }    
         },
         parseData: function (countriesData, currentIso) {
@@ -76,8 +76,10 @@ var app = (function (parent, d3) {
             el.countryData = countryData;
             return countryData;
         },
-        drawChart: function () {
-       
+        drawChart: function (iso) {
+            
+            chart.iso = iso;
+            
             var countryData = app.chart.parseData(chart.data, chart.iso);
            
             chart.x = d3.scaleTime().range([0, width])
@@ -109,7 +111,9 @@ var app = (function (parent, d3) {
                     return chart.y(d.percentage);
                 });
             
-            var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                    .attr('id', 'lines-group');
 
             g.append("g")
                 .attr("class", "axis axis--x")
@@ -123,16 +127,14 @@ var app = (function (parent, d3) {
                 .attr("transform", "rotate(-90)")
                 .attr("y", -50)
                 .attr("dy", "0.70em")
-                .attr("fill", "#000")
+                .attr("fill", "#666")
                 .text("% Population Vaccinated");
 
-            var vaccines = g.selectAll(".vaccine")
+            var vaccineLines = g.selectAll('path')
                 .data(countryData)
-                .enter().append("g")
-                .attr("class", "vaccine");
-
-            vaccines.append("path")
-                .attr("class", "line")
+                .enter()
+                .append("path")
+                .attr("class", "vaccine-line")
                 .attr("d", function (d) {
                     return chart.line(d.values);
                 })
@@ -142,6 +144,8 @@ var app = (function (parent, d3) {
                 .attr("id", function(d) {
                     return d.id;
                 });
+            
+         
 
 //            vaccines.append("text")
 //                .datum(function (d) {
@@ -166,17 +170,20 @@ var app = (function (parent, d3) {
         updateChart: function(iso) {
     
             chart.currentIso = iso;
-         
+            
             var countryData = app.chart.parseData(chart.data, chart.currentIso);
-            
-            
-            var vaccines = d3.selectAll(".line")
-                .attr('stroke-opacity', '1')
+           
+            var vaccines = d3.selectAll(".vaccine-line")
                 .data(countryData)
+                //.enter()
                 .transition()
                 .attr("d", function (d) {
                     return chart.line(d.values);
-                });   
+                })
+                .attr('stroke-opacity', '1')
+                //.exit().remove();
+            
+//            app.chartLegend.updateLegend(iso);
         },
         compareRegion: function(vaccine) {
             
@@ -185,7 +192,7 @@ var app = (function (parent, d3) {
         },
         highlightVaccine: function(vaccine) {
              
-            d3.selectAll(".line")
+            d3.selectAll(".vaccine-line")
                 .attr('stroke-opacity', function(d){
                     console.log(d)
                     if(d.id != vaccine) return '.2';
@@ -193,6 +200,11 @@ var app = (function (parent, d3) {
                 });
             
             
+        },
+        deHighlightVaccines: function() {
+             
+            d3.selectAll(".vaccine-line")
+                .attr('stroke-opacity', '1');  
         }
 
     }

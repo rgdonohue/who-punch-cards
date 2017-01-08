@@ -1,11 +1,7 @@
-
 var app = (function(parent){
-  // start up the app!
-
+  console.log(parent)
   parent.init = function() {
       app.processData.init();
-//      app.chart.init();
-//      app.chart.parseData();
 
   }
 

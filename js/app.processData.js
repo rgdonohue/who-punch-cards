@@ -31,6 +31,7 @@ var app = (function(parent, d3) {
                         var countriesData = {};
 
                         d.map(function(vaccineDatum) {
+
                             vaccineDatum.map(function(countryVaccineDatum) {
 
                                 // build object to hold all vaccination data
@@ -39,7 +40,9 @@ var app = (function(parent, d3) {
                                     countriesData[countryVaccineDatum.ISO_code][countryVaccineDatum.Vaccine] = countryVaccineDatum;
                                 } else {
                                     countriesData[countryVaccineDatum.ISO_code] = {};
+                                    countriesData[countryVaccineDatum.ISO_code]['cName'] = countryVaccineDatum.Cname;
                                     countriesData[countryVaccineDatum.ISO_code][countryVaccineDatum.Vaccine] = countryVaccineDatum;
+                                    console.log(countryVaccineDatum.Vaccine)
                                 }
 
                                 // add vaccination data to country geom properties
@@ -51,13 +54,12 @@ var app = (function(parent, d3) {
                             });
                         });
 
-                        console.log(countriesData)
                         el.countriesData = countriesData;
                         el.countriesGeom = countriesGeom;
                         el.vaccineCodes = vaccineCodes;
 
                         app.chart.init(el.countriesData);
-                        app.map.init(el.countriesGeom);
+                        // app.map.init(el.countriesGeom);
                         app.ui.init(el.countriesData);
 
 
@@ -74,7 +76,7 @@ var app = (function(parent, d3) {
                         geoms.map(function(o) {
                             geometryIsos.push(o.properties.iso)
                         });
-                        
+
                         var missingGeoms = [];
 
                         dataIsos.map(function(iso) {

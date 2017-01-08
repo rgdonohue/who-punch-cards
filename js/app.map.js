@@ -15,20 +15,20 @@ var app = (function(parent, d3) {
                 .attr("width", width)
                 .attr("height", height);
 
-            //	  var projection = d3.geoInterrupt(d3.geoSinusoidalRaw,
-            //		  [[ // northern hemisphere
-            //              [[-180,   0], [-100,  90], [ -40,   0]],
-            //              [[ -40,   0], [  30,  90], [ 180,   0]]
-            //            ], [ // southern hemisphere
-            //              [[-180,   0], [-160, -90], [-100,   0]],
-            //              [[-100,   0], [ -60, -90], [ -20,   0]],
-            //              [[ -20,   0], [  20, -90], [  80,   0]],
-            //              [[  80,   0], [ 140, -90], [ 180,   0]]
-            //            ]])
-            //		.rotate([0, 0])
-            //		.scale(120)
-            //		.translate([width / 2, height / 2])
-            //		.precision(0.1);
+            // var projection = d3.geoInterrupt(d3.geoSinusoidalRaw,
+            //   [[ // northern hemisphere
+            //          [[-180,   0], [-100,  90], [ -40,   0]],
+            //          [[ -40,   0], [  30,  90], [ 180,   0]]
+            //        ], [ // southern hemisphere
+            //          [[-180,   0], [-160, -90], [-100,   0]],
+            //          [[-100,   0], [ -60, -90], [ -20,   0]],
+            //          [[ -20,   0], [  20, -90], [  80,   0]],
+            //          [[  80,   0], [ 140, -90], [ 180,   0]]
+            //        ]])
+            // .rotate([0, 0])
+            // .scale(Math.PI * 2)
+            // .translate([width / 2, height / 2])
+            // .precision(0.1);
 
             var projection = d3.geoCylindricalStereographic()
                 .scale(Math.PI * 2)
@@ -47,25 +47,27 @@ var app = (function(parent, d3) {
             var center = projection([-30, 20]);
 
 
-            //        var defs = svg.append("defs");
-            //
-            //		defs.append("path")
-            //			.datum({type: "Sphere"})
-            //			.attr("id", "sphere")
-            //			.attr("d", path);
-            //
-            //		defs.append("clipPath")
-            //			.attr("id", "clip")
-            //		  .append("use")
-            //			.attr("xlink:href", "#sphere");
-            //
-            //		svg.append("use")
-            //			.attr("class", "stroke")
-            //			.attr("xlink:href", "#sphere");
-            //
-            //		svg.append("use")
-            //			.attr("class", "fill")
-            //			.attr("xlink:href", "#sphere");
+            var defs = svg.append("defs");
+
+            defs.append("path")
+                .datum({
+                    type: "Sphere"
+                })
+                .attr("id", "sphere")
+                .attr("d", path);
+
+            defs.append("clipPath")
+                .attr("id", "clip")
+                .append("use")
+                .attr("xlink:href", "#sphere");
+
+            svg.append("use")
+                .attr("class", "stroke")
+                .attr("xlink:href", "#sphere");
+
+            svg.append("use")
+                .attr("class", "fill")
+                .attr("xlink:href", "#sphere");
 
             var grat = svg.append("path")
                 .datum(graticule)
@@ -83,6 +85,7 @@ var app = (function(parent, d3) {
                 .on('mouseover', function(d) {
                     app.map.highLightCountry(d.properties.iso);
                     app.chart.updateChart(d.properties.iso);
+                    app.ui.updateSelected(d.properties.iso);
                 })
                 .on('mouseout', function(d) {
                     app.map.deHighLightCountry();
